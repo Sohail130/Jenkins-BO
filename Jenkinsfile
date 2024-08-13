@@ -26,9 +26,20 @@ date'''
     }
 
     stage('deploy') {
-      steps {
-        echo 'deploy'
-        sleep 13
+      parallel {
+        stage('deploy') {
+          steps {
+            echo 'deploy'
+            sleep 13
+          }
+        }
+
+        stage('prod') {
+          steps {
+            echo 'prod deployment'
+          }
+        }
+
       }
     }
 
