@@ -8,7 +8,7 @@ pipeline{
         }
             stage("B"){
             steps{
-                echo "========executing B========"
+                echo "========executing B========="
             }
             }
             stage("C"){
