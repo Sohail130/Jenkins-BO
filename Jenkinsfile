@@ -9,7 +9,7 @@ pipeline {
 
     stage('Create a user') {
       steps {
-        ansiblePlaybook(playbook: '/home/ec2-user/ansible', become: true, becomeUser: 'root', checkMode: true, disableHostKeyChecking: true)
+        ansiblePlaybook(playbook: '/home/ec2-user/ansible', becomeUser: 'root', disableHostKeyChecking: true)
       }
     }
 
