@@ -2,6 +2,7 @@ pipeline {
   agent any
   stages {
     stage('Display Message') {
+      agent any
       steps {
         echo 'Starting a playbook to create user on the server'
       }
