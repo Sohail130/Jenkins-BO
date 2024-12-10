@@ -1,43 +1,36 @@
----
-- name: Create a user on localhost based on user input
-  hosts: localhost
-  become: true
-  gather_facts: false
-    #vars_prompt:
-    #- name: "username"
-    #  prompt: "Please enter the username to create"
-    #  private: no  # Set to `yes` if you want to hide input (useful for passwords)
-   vars:
-    username: "{{ user_name }}"
+pipeline{
+    agent any
 
-  tasks:
-    - name: Check if user exists
-      ansible.builtin.getent:
-        database: passwd
-        key: "{{ username }}"
-      register: user_exists
-      failed_when: false
+    stages{
+        stage("Starting"){
+            steps{
+                echo "========Starting pipeline to create a user========"
+            }
 
-    - name: Create the user if it doesn't exist
-      ansible.builtin.user:
-        name: "{{ username }}"
-        state: present
-        comment: "Created by Ansible playbook"
-      when: user_exists.failed
+        }
 
-    - name: Notify user of success
-      debug:
-        msg: "User '{{ username }}' has been created successfully!"
-      when: user_exists.failed
+                stage("Invoking user create Playbook"){
+parameters {
+  string defaultValue: 'awez', name: 'user_name'
+}
 
-    - name: Notify user if the user already exists
-      debug:
-        msg: "User '{{ username }}' already exists."
-      when: not user_exists.failed
+            steps{
+                echo "========Starting pipeline to create a user========"
 
-        # - name: Check if user exists
-        #getent:
-        # database: passwd
-        # key: "{{ username }}"
-        #register: user_check
-        #ignore_errors: true
+                ansiblePlaybook playbook: '/home/ec2-user/ansible/usercreation.yml', vaultTmpPath: ''
+            }
+
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
