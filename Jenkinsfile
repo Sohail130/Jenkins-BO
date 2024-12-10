@@ -24,12 +24,8 @@ parameters {
                     def username = params.user_name
                     sh """
                         ansible-playbook /home/ec2-user/ansible/usercreation.yml -e "user_name=${username}"
-                    """    
-             #   ansiblePlaybook (
-              #      playbook: '/home/ec2-user/ansible/usercreation.yml', 
-               #     vaultTmpPath: '', 
-                #    extraVars: [user_name: "${params.user_name}"]
-                 #   )
+                    """
+                }
             }
 
         }
