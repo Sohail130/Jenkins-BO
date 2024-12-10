@@ -1,7 +1,11 @@
 pipeline{
     agent any
 parameters {
-  string defaultValue: 'awez', name: 'user_name'
+     string(
+            defaultValue: 'awez',
+            description: 'Enter the username to create',
+            name: 'user_name'
+        )
 }
     stages{
         stage("Starting"){
