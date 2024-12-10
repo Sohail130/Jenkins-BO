@@ -1,6 +1,8 @@
 pipeline{
     agent any
-
+parameters {
+  string defaultValue: 'awez', name: 'user_name'
+}
     stages{
         stage("Starting"){
             steps{
@@ -15,9 +17,7 @@ pipeline{
             steps{
 
                 echo "========Starting pipeline to create a user========"
-parameters {
-  string defaultValue: 'awez', name: 'user_name'
-}
+
                 ansiblePlaybook playbook: '/home/ec2-user/ansible/usercreation.yml', vaultTmpPath: ''
             }
 
