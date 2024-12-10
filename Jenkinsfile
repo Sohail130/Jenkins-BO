@@ -8,6 +8,10 @@ pipeline {
         )
     }
 
+    environment {
+        USER_NAME = "${params.user_name}"
+    }
+
     stages {
         stage("Starting") {
             steps {
@@ -18,13 +22,11 @@ pipeline {
         stage("Invoking user create Playbook") {
             steps {
                 echo "========Starting pipeline to create a user========"
-                script {
-                    def username = params.user_name
-                    echo "Username is: ${username}"
-                    sh """
-                        ansible-playbook /home/ec2-user/ansible/usercreation.yml -e "user_name=${username}"
-                    """
-                }
+                ansiblePlaybook (
+                    playbook: '/home/ec2-user/ansible/usercreation.yml',
+                    vaultTmpPath: '',
+                    extraVars: [user_name: "${env.USER_NAME}"]
+                )
             }
         }
     }
