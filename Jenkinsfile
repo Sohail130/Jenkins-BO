@@ -10,13 +10,14 @@ pipeline{
         }
 
                 stage("Invoking user create Playbook"){
+
+
+            steps{
+
+                echo "========Starting pipeline to create a user========"
 parameters {
   string defaultValue: 'awez', name: 'user_name'
 }
-
-            steps{
-                echo "========Starting pipeline to create a user========"
-
                 ansiblePlaybook playbook: '/home/ec2-user/ansible/usercreation.yml', vaultTmpPath: ''
             }
 
