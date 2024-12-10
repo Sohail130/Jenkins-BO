@@ -22,7 +22,11 @@ parameters {
 
                 echo "========Starting pipeline to create a user========"
 
-                ansiblePlaybook playbook: '/home/ec2-user/ansible/usercreation.yml', vaultTmpPath: '', extraVars: [user_name: "${params.user_name}"]
+                ansiblePlaybook (
+                    playbook: '/home/ec2-user/ansible/usercreation.yml', 
+                    vaultTmpPath: '', 
+                    extraVars: [user_name: "${params.user_name}"]
+                    )
             }
 
         }
