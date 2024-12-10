@@ -30,7 +30,7 @@ parameters {
                #     vaultTmpPath: '', 
                 #    extraVars: [user_name: "${params.user_name}"]
                  #   )
-            # }
+            }
 
         }
     }
